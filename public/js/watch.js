@@ -103,15 +103,53 @@
   // ═══════════════════════════════════════════════
 
   function loadVideoFile(file) {
-    const url = URL.createObjectURL(file);
-    video.src = url;
-    video.load();
-    dropOverlay.classList.add('hidden');
-    toast(`Loaded: ${file.name}`, 'success');
-
-    if (isHost) {
-      signaling.send('video-load', { fileName: file.name, fileSize: file.size });
+    if (!isHost) {
+      toast('Only the host can upload a video', 'error');
+      return;
     }
+
+    lobbyTitle.textContent = 'Uploading...';
+    lobbySubtitle.textContent = '0%';
+    btnPickFile.style.display = 'none';
+
+    const formData = new FormData();
+    formData.append('video', file);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `/upload/${roomId}`, true);
+
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        lobbySubtitle.textContent = `${percent}%`;
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const res = JSON.parse(xhr.responseText);
+        video.src = res.url;
+        video.load();
+        dropOverlay.classList.add('hidden');
+        toast(`Uploaded: ${file.name}`, 'success');
+
+        signaling.send('video-url-load', { url: res.url, fileName: file.name });
+      } else {
+        lobbyTitle.textContent = 'Upload failed';
+        lobbySubtitle.textContent = 'Please try again';
+        btnPickFile.style.display = 'inline-block';
+        toast('Upload failed', 'error');
+      }
+    };
+
+    xhr.onerror = () => {
+      lobbyTitle.textContent = 'Upload failed';
+      lobbySubtitle.textContent = 'Network error';
+      btnPickFile.style.display = 'inline-block';
+      toast('Upload failed', 'error');
+    };
+
+    xhr.send(formData);
   }
 
   btnPickFile.addEventListener('click', () => fileInput.click());
@@ -380,11 +418,12 @@
     });
 
     // Video sync from host
-    signaling.on('video-load', (msg) => {
+    signaling.on('video-url-load', (msg) => {
       if (!isHost) {
-        lobbyTitle.textContent = 'Host loaded: ' + msg.fileName;
-        lobbySubtitle.textContent = 'Select the same file to watch together.';
-        toast(`Host loaded: ${msg.fileName}`, 'info');
+        video.src = msg.url;
+        video.load();
+        dropOverlay.classList.add('hidden');
+        toast(`Host loaded: ${msg.fileName}`, 'success');
       }
     });
 
@@ -479,7 +518,8 @@
     // Show different UI for host vs viewer
     if (!isHost) {
       lobbyTitle.textContent = 'Waiting for host';
-      lobbySubtitle.textContent = 'The host will load a video to watch together.';
+      lobbySubtitle.textContent = 'The host is uploading a video...';
+      btnPickFile.style.display = 'none';
     }
 
     // Nickname prompt

@@ -79,14 +79,9 @@
     };
   }
 
-  // ── Create Screen Share Room ──
-  btnCreate.addEventListener('click', () => {
-    createRoomAndRedirect(btnCreate, '🖥️ Share Screen', 'room.html');
-  });
-
   // ── Create Watch Party ──
   btnWatch.addEventListener('click', () => {
-    createRoomAndRedirect(btnWatch, '🎬 Watch Party', 'watch.html');
+    createRoomAndRedirect(btnWatch, '🎬 Start a Watch Party', 'watch.html');
   });
 
   // ── Join Room ──
@@ -102,7 +97,7 @@
       inputCode.focus();
       return;
     }
-    window.location.href = `/room.html?id=${code}`;
+    window.location.href = `/watch.html?id=${code}`;
   }
 
   btnJoin.addEventListener('click', joinRoom);
