@@ -1,0 +1,23 @@
+{
+  "name": "screen-sync",
+  "version": "1.0.0",
+  "description": "Browser-based, zero-install screen sharing platform powered by WebRTC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "webrtc",
+    "screen-sharing",
+    "p2p",
+    "real-time"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0",
+    "multer": "^2.1.1",
+    "uuid": "^10.0.0",
+    "ws": "^8.18.0"
+  }
+}

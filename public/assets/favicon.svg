@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <!-- Back screen -->
+  <rect x="14" y="8" width="36" height="26" rx="4" fill="url(#g)" opacity="0.45"/>
+  <!-- Front screen -->
+  <rect x="10" y="18" width="36" height="26" rx="4" fill="url(#g)"/>
+  <!-- Screen shine -->
+  <rect x="14" y="22" width="28" height="18" rx="2" fill="#0a0a1a" opacity="0.6"/>
+  <!-- Broadcast waves -->
+  <path d="M50 38 Q54 34 50 30" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <path d="M54 40 Q60 34 54 28" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <!-- Stand -->
+  <rect x="22" y="44" width="12" height="3" rx="1.5" fill="url(#g)" opacity="0.7"/>
+  <rect x="18" y="48" width="20" height="3" rx="1.5" fill="url(#g)" opacity="0.5"/>
+</svg>

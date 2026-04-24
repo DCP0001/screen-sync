@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ScreenSync Watch Party — Watch videos together in sync with friends.">
+  <title>ScreenSync — Watch Party</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-blob bg-blob--violet"></div>
+    <div class="bg-blob bg-blob--cyan"></div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Page -->
+  <div class="page-content">
+    <div class="watch-layout">
+
+      <!-- Top bar -->
+      <div class="glass-card top-bar" id="top-bar">
+        <div class="top-bar__left">
+          <a href="/" class="logo">
+            <img src="/assets/favicon.svg" alt="" class="logo__icon" style="width:28px;height:28px">
+            <span class="logo__text" style="font-size:1.1rem">ScreenSync</span>
+          </a>
+          <div class="room-id-badge" id="room-id-badge" title="Click to copy room link">
+            <span class="room-id-badge__code" id="room-id-display">--------</span>
+            <span class="room-id-badge__copy">📋 Copy</span>
+          </div>
+          <div class="status-pill" id="mode-pill" style="border-left: 3px solid #e11d48;">
+            <span>🎬</span> <span>Watch Party</span>
+          </div>
+        </div>
+        <div class="top-bar__right">
+          <div class="status-pill" id="host-status-pill">
+            <span class="status-dot status-dot--warning" id="host-status-dot"></span>
+            <span id="host-status-text">Connecting…</span>
+          </div>
+          <div class="status-pill">
+            <span>👥</span> <span id="viewer-count">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content area -->
+      <div class="watch-main">
+
+        <!-- Video area -->
+        <div class="watch-video-area">
+          <div class="video-container" id="video-wrapper">
+            <!-- Drop zone overlay -->
+            <div class="video-container__overlay" id="drop-overlay">
+              <div class="lobby-state">
+                <div class="lobby-state__icon">🎬</div>
+                <h2 class="lobby-state__title" id="lobby-title">Load a video</h2>
+                <p class="lobby-state__subtitle" id="lobby-subtitle">
+                  Click below to select a video file, or drag &amp; drop it here.
+                </p>
+                <input type="file" id="file-input" accept="video/*" class="sr-only">
+                <button class="btn btn-primary" id="btn-pick-file">📁 Choose File</button>
+              </div>
+            </div>
+            <video id="watch-video" playsinline></video>
+          </div>
+
+          <!-- Video controls -->
+          <div class="glass-card watch-controls" id="watch-controls">
+            <button class="btn btn-secondary btn-icon" id="btn-play" title="Play/Pause">▶️</button>
+            <div class="seek-bar-wrapper">
+              <input type="range" class="seek-bar" id="seek-bar" min="0" max="100" step="0.1" value="0">
+              <div class="seek-bar-fill" id="seek-bar-fill"></div>
+            </div>
+            <span class="time-display" id="time-display">0:00 / 0:00</span>
+            <button class="btn btn-secondary btn-icon" id="btn-volume" title="Mute/Unmute">🔊</button>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="1">
+            <button class="btn btn-secondary btn-icon" id="btn-fullscreen" title="Fullscreen">⛶</button>
+          </div>
+
+          <!-- Action bar -->
+          <div class="glass-card watch-action-bar">
+            <button class="btn btn-secondary" id="btn-mic" title="Toggle Microphone">🎤 Voice Chat</button>
+            <button class="btn btn-secondary" id="btn-copy-link" title="Copy room link">🔗 Copy Link</button>
+            <button class="btn btn-danger" id="btn-leave" title="Leave room">🚪 Leave</button>
+          </div>
+        </div>
+
+        <!-- Chat sidebar -->
+        <div class="glass-card chat-sidebar" id="chat-sidebar">
+          <div class="chat-header">
+            <h3 class="chat-header__title">💬 Chat</h3>
+            <span class="chat-header__count" id="chat-count">0 messages</span>
+          </div>
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-empty">No messages yet. Say hi! 👋</div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" class="input chat-input" id="chat-input" placeholder="Type a message..." maxlength="500" autocomplete="off">
+            <button class="btn btn-primary chat-send" id="btn-send-chat">→</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Nickname modal -->
+  <div class="nickname-modal" id="nickname-modal">
+    <div class="glass-card nickname-modal__card">
+      <h2 style="margin-bottom:8px">👋 What's your name?</h2>
+      <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px">This will be shown in chat</p>
+      <input type="text" class="input" id="nickname-input" placeholder="Enter a nickname" maxlength="20" autocomplete="off">
+      <button class="btn btn-primary" id="btn-set-nickname" style="margin-top:16px;width:100%">Join Party 🎉</button>
+    </div>
+  </div>
+
+  <script src="/js/signaling.js"></script>
+  <script src="/js/webrtc.js"></script>
+  <script src="/js/watch.js"></script>
+</body>
+</html>

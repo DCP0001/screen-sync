@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ScreenSync — Share your screen instantly with anyone. No downloads, no signups, just a link. Powered by WebRTC for low-latency peer-to-peer streaming.">
+  <title>ScreenSync — Instant Screen Sharing</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-blob bg-blob--violet"></div>
+    <div class="bg-blob bg-blob--cyan"></div>
+    <div class="bg-blob bg-blob--small"></div>
+  </div>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Page -->
+  <div class="page-content">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <div class="container nav__inner">
+        <a href="/" class="logo" id="logo-link">
+          <img src="/assets/favicon.svg" alt="" class="logo__icon">
+          <span class="logo__text">ScreenSync</span>
+        </a>
+        <div class="nav__links">
+          <a href="https://github.com" target="_blank" class="btn btn-secondary" id="nav-github"
+             style="padding: 8px 16px; font-size: 0.8rem;">
+            ⭐ GitHub
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Zero install • Peer-to-peer • Low latency
+        </div>
+
+        <h1 class="hero__title">
+          Share your screen<br>
+          <span class="hero__title-accent">instantly.</span>
+        </h1>
+
+        <p class="hero__subtitle">
+          No downloads, no sign-ups, no hassle. Create a room, share the link, and 
+          start streaming your screen in real time — powered by WebRTC.
+        </p>
+
+        <div class="hero__actions">
+          <button class="btn btn-primary" id="btn-create-room">
+            🖥️ Share Screen
+          </button>
+          <button class="btn btn-primary" id="btn-watch-party" style="background: linear-gradient(135deg, #e11d48 0%, #7c3aed 100%); box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);">
+            🎬 Watch Party
+          </button>
+        </div>
+
+        <div class="divider-text">or join an existing room</div>
+
+        <div class="join-section">
+          <input
+            type="text"
+            class="input"
+            id="input-room-code"
+            placeholder="Room code"
+            maxlength="8"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button class="btn btn-secondary" id="btn-join-room">
+            Join →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="container">
+        <div class="features__grid">
+          <div class="glass-card feature-card" id="feature-instant">
+            <span class="feature-card__icon">⚡</span>
+            <h3 class="feature-card__title">Instant Setup</h3>
+            <p class="feature-card__desc">
+              Create a room in one click. No accounts, no installations — 
+              just share the link and go.
+            </p>
+          </div>
+          <div class="glass-card feature-card" id="feature-secure">
+            <span class="feature-card__icon">🔒</span>
+            <h3 class="feature-card__title">Peer-to-Peer</h3>
+            <p class="feature-card__desc">
+              Your stream goes directly to viewers via WebRTC.
+              No server middleman touching your data.
+            </p>
+          </div>
+          <div class="glass-card feature-card" id="feature-fast">
+            <span class="feature-card__icon">🚀</span>
+            <h3 class="feature-card__title">Ultra Low Latency</h3>
+            <p class="feature-card__desc">
+              Sub-500ms target latency with adaptive quality. 
+              See your screen, not a slideshow.
+            </p>
+          </div>
+          <div class="glass-card feature-card" id="feature-watch">
+            <span class="feature-card__icon">🎬</span>
+            <h3 class="feature-card__title">Watch Party</h3>
+            <p class="feature-card__desc">
+              Load a movie, sync playback, voice chat &amp; text chat
+              — the ultimate movie night with friends.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
